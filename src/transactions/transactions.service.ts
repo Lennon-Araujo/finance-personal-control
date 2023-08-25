@@ -1,29 +1,53 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class TransactionsService {
-  private readonly transactions = [];
+  constructor(private prisma: PrismaService) {}
 
-  create(createTransactionDto: CreateTransactionDto) {
-    this.transactions.push(createTransactionDto);
-    return this.transactions;
+  async create(createTransactionDto: CreateTransactionDto) {
+    const transaction = this.prisma.transactions.create({
+      data: createTransactionDto,
+    });
+
+    return transaction;
   }
 
   findAll() {
-    return `This action returns all transactions`;
+    return this.prisma.transactions.findMany({
+      orderBy: {
+        created_at: 'asc',
+      },
+    });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} transaction`;
+    return this.prisma.transactions.findUniqueOrThrow({
+      where: {
+        id,
+      },
+      include: {
+        category: true,
+      },
+    });
   }
 
   update(id: number, updateTransactionDto: UpdateTransactionDto) {
-    return `This action updates a #${id} transaction`;
+    return this.prisma.category.update({
+      where: {
+        id,
+      },
+      data: updateTransactionDto,
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} transaction`;
+    return this.prisma.transactions.delete({
+      where: {
+        id,
+      },
+    });
   }
 }

@@ -1,27 +1,21 @@
 import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateTransactionDto {
-  id: string;
-
-  @IsNotEmpty()
   @IsString()
+  @IsNotEmpty()
   name: string;
 
+  @IsNumber()
   @IsNotEmpty()
-  @IsString()
-  category: string;
+  categoryId: number;
 
   @IsNotEmpty()
   when: Date;
 
-  @IsNotEmpty()
   @IsNumber()
+  @IsNotEmpty()
   cost: number;
 
   @IsBoolean()
   shared: boolean;
-
-  created_at: Date;
-
-  updated_at: Date;
 }
