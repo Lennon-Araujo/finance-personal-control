@@ -18,6 +18,9 @@ export class CategoryService {
       orderBy: {
         created_at: 'asc',
       },
+      include: {
+        transactions: true
+      }
     });
   }
 

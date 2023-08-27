@@ -35,7 +35,7 @@ export class TransactionsService {
   }
 
   update(id: number, updateTransactionDto: UpdateTransactionDto) {
-    return this.prisma.category.update({
+    return this.prisma.transactions.update({
       where: {
         id,
       },
