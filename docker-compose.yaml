@@ -8,6 +8,8 @@ services:
     volumes:
       - .:/home/node/app
     command: npm run start:dev
+    networks:
+      - finance
     depends_on:
       - db
 
@@ -16,3 +18,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: nest
+    networks:
+      - finance
+
+networks: 
+    finance:
+        driver: bridge
