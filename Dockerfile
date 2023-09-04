@@ -1,5 +1,10 @@
-FROM node:19-slim
+FROM node:lts-alpine3.17
 
 WORKDIR /home/node/app
 
-CMD ["tail", "-f", "/dev/null"]
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "run", "start"]

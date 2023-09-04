@@ -2,25 +2,11 @@ version: '3'
 
 services:
   app:
-    build: .
+    build:
+      dockerfile: ./Dockerfile
+      context: .
     ports:
       - 3000:3000
     volumes:
       - .:/home/node/app
-    command: npm run start:dev
-    networks:
-      - finance
-    depends_on:
-      - db
-
-  db:
-    image: mysql:8.0.30-debian
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: nest
-    networks:
-      - finance
-
-networks: 
-    finance:
-        driver: bridge
+    command: npm run start
